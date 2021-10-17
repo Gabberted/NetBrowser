@@ -67,6 +67,7 @@ class NetFrameWorks{
         	client.Headers["User-Agent"] = "Googlebot/2.1 (+http://www.googlebot.com/bot.html)";
 	        client.Headers["Accept-Encoding"] = "gzip";
         
+		/*
 	        // Download data.
 	        byte[] arr = client.DownloadData("http://www.dotnetperls.com/");
         
@@ -77,7 +78,18 @@ class NetFrameWorks{
 	        Console.WriteLine("--- WebClient result ---");
 	        Console.WriteLine(arr.Length);
 	        Console.WriteLine(contentEncoding);
+		*/
+		ProbeSite("www.nu.nl")
     
+	}
+
+	private ProbeSite(string strSite){
+		// Remove insecure protocols (SSL3, TLS 1.0, TLS 1.1)
+		ServicePointManager.SecurityProtocol &= ~SecurityProtocolType.Ssl3;
+		ServicePointManager.SecurityProtocol &= ~SecurityProtocolType.Tls;
+		ServicePointManager.SecurityProtocol &= ~SecurityProtocolType.Tls11;
+		// Add TLS 1.2
+		ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 	}
 
 	private void Scan_TimeZone(){
